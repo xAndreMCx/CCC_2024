@@ -25,42 +25,9 @@ path_t lawn_matrix_check_direction(lawn_matrix_t* lawn_matrix, int* x, int* y, d
 }
 
 char* generate_path(lawn_t* lawn) {
-  // queue_t* queue = create_queue();
-  // lawn_matrix_t* lawn_matrix = lawn_matrix_populate(lawn);
-  // enqueue(queue, 0, 0, lawn_matrix_copy(lawn_matrix));
-  // while (!queue_is_empty(queue)) {
-  //   node_t* node = dequeue(queue);
-  //   for (direction_t direction = 0; direction < TOTAL_DIRECTIONS; direction++) {
-  //     int x = node->x;
-  //     int y = node->y;
-  //     path_t path = lawn_matrix_check_direction(node->lawn_matrix, &x, &y, direction);
-  //     switch (path) {
-  //       case PATH_VALID: {
-  //         char* p = directions_to_string(node->lawn_matrix->directions, node->lawn_matrix->directions_length);
-  //         free_node(node);
-  //         free_queue(queue);
-  //         free_lawn_matrix(lawn_matrix);
-  //         return p;
-  //       }
-  //       case PATH_INVALID:
-  //         continue;
-  //       case PATH_INCOMPLETE: {
-  //         lawn_matrix_t* copy = lawn_matrix_copy(node->lawn_matrix);
-  //         copy->matrix[y][x] = true;
-  //         lawn_matrix_append_direction(copy, direction);
-  //         enqueue(queue, x, y, copy);
-  //         break;
-  //       }
-  //     }
-  //   }
-  //   free_node(node);
-  // }
-  // free_queue(queue);
-  // free_lawn_matrix(lawn_matrix);
-  // return NULL;
   stack_t* stack = create_stack();
   lawn_matrix_t* lawn_matrix = lawn_matrix_populate(lawn);
-  stack_push(stack, 0, 0, lawn_matrix);
+  stack_push(stack, 0, 0, lawn_matrix_copy(lawn_matrix));
   while (!stack_is_empty(stack)) {
     node_t* node = stack_pop(stack);
     for (direction_t direction = 0; direction < TOTAL_DIRECTIONS; direction++) {
@@ -71,8 +38,8 @@ char* generate_path(lawn_t* lawn) {
         case PATH_VALID: {
           char* p = directions_to_string(node->lawn_matrix->directions, node->lawn_matrix->directions_length);
           free_node(node);
-          free_stack(stack);
           free_lawn_matrix(lawn_matrix);
+          free_stack(stack);
           return p;
         }
         case PATH_INVALID:

@@ -4,6 +4,7 @@
 
 stack_t* create_stack() {
   stack_t* stack = malloc(sizeof(stack_t));
+  stack->top = NULL;
   return stack;
 }
 

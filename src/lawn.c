@@ -133,7 +133,7 @@ void direction_go(int* x, int* y, direction_t direction) {
 }
 
 char* directions_to_string(direction_t* directions, unsigned int length) {
-  char* string = malloc(length * sizeof(char));
+  char* string = malloc((length + 1) * sizeof(char));
   for (unsigned int i = 0; i < length; i++) {
     switch (directions[i]) {
       case DIRECTION_UP:
@@ -150,5 +150,6 @@ char* directions_to_string(direction_t* directions, unsigned int length) {
         break;
     }
   }
+  string[length] = '\0';
   return string;
 }
