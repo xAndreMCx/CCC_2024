@@ -4,7 +4,6 @@
 
 #include "lawn.h"
 #include "path.h"
-#include "queue.h"
 
 int main(int argc, const char** argv) {
   if (argc != 3) {
