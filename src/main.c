@@ -20,7 +20,7 @@ int main(int argc, const char** argv) {
   }
 
   unsigned int num_lawns = 0;
-  fscanf(file_input, "%d\n", &num_lawns);
+  fscanf(file_input, "%u\n", &num_lawns);
   lawn_t** lawns = extract_lawns(file_input, num_lawns);
   fclose(file_input);
 

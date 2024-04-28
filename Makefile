@@ -5,7 +5,7 @@ SRC_DIR = ./src
 TEST_DIR = ./test
 
 CC = gcc
-WARNFLAGS	 = -Wall -Wextra -g
+WARNFLAGS	 = -Wall -Wextra -g -Wpedantic
 CFLAGS = $(WARNFLAGS) -I$(INCLUDE_DIR)
 ARGS = "a.in" "a.out"
 

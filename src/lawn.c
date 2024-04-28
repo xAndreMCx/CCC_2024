@@ -17,7 +17,7 @@ lawn_t* create_lawn(const unsigned int width, const unsigned int height) {
 
 lawn_t* extract_lawn(FILE* file) {
   unsigned int lawn_width, lawn_height;
-  fscanf(file, "%d %d", &lawn_width, &lawn_height);
+  fscanf(file, "%u %u", &lawn_width, &lawn_height);
 
   lawn_t* lawn = create_lawn(lawn_width, lawn_height);
   for (unsigned int y = 0; y < lawn_height; y++) {
@@ -46,7 +46,6 @@ lawn_matrix_t* create_lawn_matrix(const unsigned int width, const unsigned int h
   lawn_matrix_t* matrix = malloc(sizeof(lawn_matrix_t));
   matrix->width = width;
   matrix->height = height;
-  matrix->directions = malloc((width * height) * sizeof(direction_t));
   matrix->directions_length = 0;
   matrix->max_directions_length = width * height - 2;
   matrix->matrix = malloc(height * sizeof(bool*));
@@ -73,9 +72,6 @@ lawn_matrix_t* lawn_matrix_copy(lawn_matrix_t* lawn_matrix) {
   lawn_matrix_t* copy = create_lawn_matrix(lawn_matrix->width, lawn_matrix->height);
   copy->directions_length = lawn_matrix->directions_length;
   copy->max_directions_length = lawn_matrix->max_directions_length;
-  for (unsigned int direction = 0; direction < lawn_matrix->directions_length; direction++) {
-    copy->directions[direction] = lawn_matrix->directions[direction];
-  }
 
   for (unsigned int y = 0; y < lawn_matrix->height; y++) {
     for (unsigned int x = 0; x < lawn_matrix->width; x++) {
@@ -97,21 +93,11 @@ void lawn_matrix_print(lawn_matrix_t* lawn_matrix) {
   printf("]\n");
 }
 
-void lawn_matrix_append_direction(lawn_matrix_t* lawn_matrix, direction_t direction) {
-  if (lawn_matrix->directions_length > lawn_matrix->max_directions_length) {
-    fprintf(stderr, "Cannot append more directions\n");
-    return;
-  }
-  lawn_matrix->directions[lawn_matrix->directions_length] = direction;
-  lawn_matrix->directions_length++;
-}
-
 void free_lawn_matrix(lawn_matrix_t* lawn_matrix) {
   for (unsigned int i = 0; i < lawn_matrix->height; i++) {
     free(lawn_matrix->matrix[i]);
   }
   free(lawn_matrix->matrix);
-  free(lawn_matrix->directions);
   free(lawn_matrix);
 }
 
@@ -132,24 +118,17 @@ void direction_go(int* x, int* y, direction_t direction) {
   }
 }
 
-char* directions_to_string(direction_t* directions, unsigned int length) {
-  char* string = malloc((length + 1) * sizeof(char));
-  for (unsigned int i = 0; i < length; i++) {
-    switch (directions[i]) {
-      case DIRECTION_UP:
-        string[i] = 'W';
-        break;
-      case DIRECTOIN_RIGHT:
-        string[i] = 'D';
-        break;
-      case DIRECTOIN_DOWN:
-        string[i] = 'S';
-        break;
-      case DIRECTOIN_LEFT:
-        string[i] = 'A';
-        break;
-    }
+char direction_to_char(direction_t direction) {
+  switch (direction) {
+    case DIRECTION_UP:
+      return 'W';
+    case DIRECTOIN_RIGHT:
+      return 'D';
+    case DIRECTOIN_DOWN:
+      return 'S';
+    case DIRECTOIN_LEFT:
+      return 'A';
   }
-  string[length] = '\0';
-  return string;
+  fprintf(stderr, "Invalid direction: %d\n", direction);
+  return '\0';
 }

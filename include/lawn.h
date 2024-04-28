@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-typedef enum { DIRECTION_UP, DIRECTOIN_RIGHT, DIRECTOIN_DOWN, DIRECTOIN_LEFT } direction_t;
+typedef enum { DIRECTOIN_RIGHT, DIRECTOIN_DOWN, DIRECTOIN_LEFT, DIRECTION_UP } direction_t;
 #define TOTAL_DIRECTIONS 4
 
 
@@ -16,7 +16,6 @@ typedef struct {
 typedef struct {
   unsigned int width;
   unsigned int height;
-  direction_t* directions;
   unsigned int directions_length;
   unsigned int max_directions_length;
   bool** matrix;
@@ -32,8 +31,7 @@ lawn_matrix_t* create_lawn_matrix(const unsigned int width, const unsigned int h
 lawn_matrix_t* lawn_matrix_populate(lawn_t* lawn);
 lawn_matrix_t* lawn_matrix_copy(lawn_matrix_t* lawn_matrix);
 void lawn_matrix_print(lawn_matrix_t* lawn_matrix);
-void lawn_matrix_append_direction(lawn_matrix_t* lawn_matrix, direction_t direction);
 void free_lawn_matrix(lawn_matrix_t* lawn_matrix);
 
 void direction_go(int* x, int* y, direction_t direction);
-char* directions_to_string(direction_t* directions, unsigned int length);
+char direction_to_char(direction_t direction);
