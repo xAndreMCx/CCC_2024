@@ -106,13 +106,13 @@ void direction_go(int* x, int* y, direction_t direction) {
     case DIRECTION_UP:
       (*y)--;
       break;
-    case DIRECTOIN_RIGHT:
+    case DIRECTION_RIGHT:
       (*x)++;
       break;
-    case DIRECTOIN_DOWN:
+    case DIRECTION_DOWN:
       (*y)++;
       break;
-    case DIRECTOIN_LEFT:
+    case DIRECTION_LEFT:
       (*x)--;
       break;
   }
@@ -122,11 +122,11 @@ char direction_to_char(direction_t direction) {
   switch (direction) {
     case DIRECTION_UP:
       return 'W';
-    case DIRECTOIN_RIGHT:
+    case DIRECTION_RIGHT:
       return 'D';
-    case DIRECTOIN_DOWN:
+    case DIRECTION_DOWN:
       return 'S';
-    case DIRECTOIN_LEFT:
+    case DIRECTION_LEFT:
       return 'A';
   }
   fprintf(stderr, "Invalid direction: %d\n", direction);

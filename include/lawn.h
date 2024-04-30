@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-typedef enum { DIRECTOIN_RIGHT, DIRECTOIN_DOWN, DIRECTOIN_LEFT, DIRECTION_UP } direction_t;
+typedef enum { DIRECTION_RIGHT, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_UP } direction_t;
 #define TOTAL_DIRECTIONS 4
 
 
